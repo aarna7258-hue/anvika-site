@@ -3,490 +3,213 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anvika — the person who can't sit still</title>
-  <meta name="description" content="Hi, I'm Anvika (Aarna online). I make things that feel like home. Based in Nagpur, fuelled by coffee and good playlists." />
+  <title>Anvika — The person who can't sit still</title>
+  <meta name="description" content="Hi, I'm Anvika. 18, from Nagpur. I draw, create, drink too much coffee, and never stop until the work is done." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
-  <style>
-    /* ── RESET & TOKENS ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    :root {
-      --bg:       #0d0618;
-      --bg2:      #130824;
-      --violet:   #7c3aed;
-      --lav:      #a78bfa;
-      --lilac:    #ddd6fe;
-      --pink:     #e879f9;
-      --rose:     #f9a8d4;
-      --text:     #f5f0ff;
-      --muted:    #9d8ec4;
-      --card:     rgba(124,58,237,0.13);
-      --border:   rgba(167,139,250,0.18);
-      --fh:       'Fredoka One', cursive;
-      --fb:       'Nunito', sans-serif;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--fb);
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* ── CURSOR ── */
-    #cursor {
-      width: 18px; height: 18px;
-      border: 2px solid var(--lav);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%,-50%);
-      transition: transform 0.12s ease, background 0.2s, border-color 0.2s;
-    }
-    body:has(a:hover) #cursor,
-    body:has(button:hover) #cursor,
-    body:has(.card:hover) #cursor {
-      transform: translate(-50%,-50%) scale(2.2);
-      background: rgba(167,139,250,0.15);
-    }
-
-    /* ── BACKGROUND ORBS ── */
-    .orb {
-      position: fixed; border-radius: 50%;
-      filter: blur(90px); pointer-events: none;
-      z-index: 0; opacity: 0.3;
-      animation: orb-drift 16s ease-in-out infinite;
-    }
-    .o1 { width:550px;height:550px; background:radial-gradient(circle,#7c3aed,transparent); top:-180px;left:-180px; }
-    .o2 { width:420px;height:420px; background:radial-gradient(circle,#e879f9,transparent); bottom:5%;right:-120px; animation-delay:-5s; animation-duration:20s; }
-    .o3 { width:320px;height:320px; background:radial-gradient(circle,#a78bfa,transparent); top:45%;left:38%; animation-delay:-9s; animation-duration:24s; }
-    @keyframes orb-drift {
-      0%,100% { transform:translate(0,0); }
-      33%      { transform:translate(35px,-45px); }
-      66%      { transform:translate(-25px,25px); }
-    }
-
-    /* ── WINK CHARACTER (fixed top-right) ── */
-    #wink {
-      position: fixed;
-      top: 72px; right: 1.5rem;
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid var(--border);
-      z-index: 90;
-      animation: float 5s ease-in-out infinite;
-      box-shadow: 0 8px 32px rgba(124,58,237,0.3);
-      cursor: none;
-    }
-    #wink img { width:100%; height:100%; object-fit:cover; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top:0; left:0; right:0; z-index:100;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:1rem 2.5rem;
-      background:rgba(13,6,24,0.82);
-      backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--border);
-    }
-    .nav-logo { font-family:var(--fh); font-size:1.25rem; color:var(--lav); }
-    nav ul { list-style:none; display:flex; gap:2rem; }
-    nav a { font-size:0.9rem; color:var(--muted); text-decoration:none; font-weight:700; transition:color .2s; }
-    nav a:hover { color:var(--lilac); }
-
-    /* ── SECTIONS BASE ── */
-    section { position:relative; z-index:1; padding:5rem 3rem; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      text-align:center;
-      padding-top: 7rem;
-      overflow:hidden;
-    }
-
-    /* floating symbols */
-    .floatie {
-      position:absolute; pointer-events:none;
-      font-size:1.6rem; color:var(--lav); opacity:0.35;
-      animation:float 6s ease-in-out infinite;
-    }
-    .f1{top:18%;left:8%;animation-delay:0s;font-size:2rem;}
-    .f2{top:25%;right:18%;animation-delay:1.8s;color:var(--pink);font-size:1.1rem;}
-    .f3{bottom:22%;left:12%;animation-delay:3.2s;font-size:1.9rem;}
-    .f4{bottom:28%;right:9%;animation-delay:0.9s;color:var(--rose);}
-    .f5{top:55%;left:4%;animation-delay:2.4s;font-size:1rem;}
-    .f6{top:40%;right:5%;animation-delay:4s;font-size:1.2rem;color:var(--pink);}
-
-    @keyframes float {
-      0%,100%{transform:translateY(0) rotate(0deg);}
-      50%{transform:translateY(-18px) rotate(8deg);}
-    }
-
-    .hero-tag {
-      font-size:1rem; color:var(--muted); font-style:italic;
-      margin-bottom:0.6rem;
-      opacity:0; animation:fadeUp .6s ease forwards .2s;
-    }
-    .hero-name {
-      font-family:var(--fh);
-      font-size:clamp(5.5rem,17vw,12rem);
-      line-height:.92;
-      background:linear-gradient(135deg,var(--text) 0%,var(--lav) 45%,var(--pink) 100%);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-      opacity:0; animation:fadeUp .7s ease forwards .35s;
-    }
-    .hero-aka {
-      font-size:clamp(0.9rem,2vw,1.15rem);
-      color:var(--muted); margin-top:.4rem;
-      opacity:0; animation:fadeUp .6s ease forwards .5s;
-    }
-    .hero-aka span { color:var(--lav); font-weight:800; }
-    .hero-line {
-      font-family:var(--fh);
-      font-size:clamp(1.1rem,2.8vw,1.7rem);
-      color:var(--lav); margin-top:.8rem;
-      opacity:0; animation:fadeUp .6s ease forwards .65s;
-    }
-    .hero-btn {
-      display:inline-block; margin-top:2.5rem;
-      font-family:var(--fb); font-weight:800; font-size:1rem;
-      padding:.85rem 2.2rem;
-      background:linear-gradient(135deg,var(--violet),var(--pink));
-      color:#fff; border-radius:100px; text-decoration:none;
-      box-shadow:0 4px 24px rgba(124,58,237,.4);
-      transition:transform .2s,box-shadow .2s;
-      opacity:0; animation:fadeUp .6s ease forwards .8s;
-    }
-    .hero-btn:hover { transform:translateY(-3px); box-shadow:0 10px 36px rgba(124,58,237,.55); }
-
-    /* sticker banner strip */
-    .banner-strip {
-      margin-top:3rem; overflow:hidden;
-      opacity:0; animation:fadeUp .6s ease forwards 1s;
-    }
-    .banner-inner {
-      display:flex; gap:0; white-space:nowrap;
-      animation:marquee 18s linear infinite;
-    }
-    .banner-img {
-      height:60px; width:auto;
-      margin-right:2rem; border-radius:8px;
-      filter:drop-shadow(0 4px 12px rgba(124,58,237,.4));
-    }
-
-    @keyframes marquee {
-      from{transform:translateX(0);}
-      to{transform:translateX(-50%);}
-    }
-
-    /* ── ABOUT ── */
-    .about {
-      background:rgba(124,58,237,.05);
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-    }
-    .about-inner {
-      max-width:960px; margin:0 auto;
-      display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;
-    }
-    .sec-label {
-      font-size:.75rem; font-weight:800;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:var(--lav); margin-bottom:.75rem;
-    }
-    .about h2 {
-      font-family:var(--fh);
-      font-size:clamp(2rem,4vw,3rem);
-      line-height:1.1; margin-bottom:1.5rem;
-    }
-    .about h2 em {
-      font-style:normal;
-      background:linear-gradient(135deg,var(--lav),var(--pink));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    }
-    .about p {
-      font-size:1.05rem; color:var(--muted);
-      line-height:1.85; margin-bottom:1rem;
-    }
-    .about-stickers {
-      display:grid; grid-template-columns:1fr 1fr; gap:1rem;
-    }
-    .about-sticker {
-      background:var(--card); border:1px solid var(--border);
-      border-radius:20px; overflow:hidden;
-      aspect-ratio:1; display:flex; align-items:center; justify-content:center;
-      transition:transform .3s, box-shadow .3s;
-      cursor:pointer;
-    }
-    .about-sticker:hover { transform:translateY(-6px) rotate(2deg); box-shadow:0 12px 32px rgba(232,121,249,.25); }
-    .about-sticker img { width:100%; height:100%; object-fit:cover; }
-
-    /* ── VIBES ── */
-    .vibes { max-width:900px; margin:0 auto; text-align:center; }
-    .vibes h2 {
-      font-family:var(--fh);
-      font-size:clamp(2rem,4vw,3rem);
-      margin-bottom:2.5rem;
-    }
-    .vibes h2 em {
-      font-style:normal;
-      background:linear-gradient(135deg,var(--lav),var(--pink));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    }
-    .vibes-row {
-      display:flex; flex-wrap:wrap;
-      gap:.75rem; justify-content:center;
-    }
-    .vibe-pill {
-      display:flex; align-items:center; gap:.5rem;
-      background:var(--card); border:1px solid var(--border);
-      border-radius:100px; padding:.65rem 1.4rem;
-      font-size:.95rem; font-weight:700; color:var(--lilac);
-      transition:transform .2s, background .2s;
-      cursor:default;
-    }
-    .vibe-pill:hover { transform:scale(1.06); background:rgba(124,58,237,.25); }
-    .vibe-pill span:first-child { font-size:1.2rem; }
-
-    /* ── CLOSING ── */
-    .closing {
-      text-align:center;
-      border-top:1px solid var(--border);
-      padding:5rem 3rem 4rem;
-    }
-    .closing h2 {
-      font-family:var(--fh);
-      font-size:clamp(2rem,5vw,3.5rem);
-      margin-bottom:1.2rem;
-    }
-    .closing h2 em {
-      font-style:normal;
-      background:linear-gradient(135deg,var(--lav),var(--pink));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    }
-    .closing p {
-      font-size:1.05rem; color:var(--muted);
-      line-height:1.85; max-width:560px; margin:0 auto 2.5rem;
-    }
-    .closing-links { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
-    .c-btn {
-      display:inline-block; font-weight:800; font-size:.9rem;
-      padding:.75rem 1.8rem;
-      border:1.5px solid var(--border); border-radius:100px;
-      color:var(--lilac); text-decoration:none;
-      transition:background .2s, border-color .2s, transform .2s;
-    }
-    .c-btn:hover { background:var(--card); border-color:var(--lav); transform:translateY(-2px); }
-    .c-btn.main {
-      background:linear-gradient(135deg,var(--violet),var(--pink));
-      border-color:transparent; color:#fff;
-      box-shadow:0 4px 20px rgba(124,58,237,.35);
-    }
-    .c-btn.main:hover { box-shadow:0 8px 32px rgba(124,58,237,.55); }
-
-    /* heart message */
-    .heart-msg {
-      margin-top:4rem;
-      font-family:var(--fh);
-      font-size:clamp(1rem,2.5vw,1.4rem);
-      color:rgba(167,139,250,.25);
-      overflow:hidden; white-space:nowrap;
-    }
-    .heart-inner {
-      display:inline-block;
-      animation:marquee 22s linear infinite;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      position:relative; z-index:1;
-      text-align:center; padding:1.5rem;
-      border-top:1px solid var(--border);
-      font-size:.8rem; color:var(--muted);
-    }
-
-    /* ── REVEAL ── */
-    .reveal {
-      opacity:0; transform:translateY(28px);
-      transition:opacity .7s ease, transform .7s ease;
-      transition-delay:var(--d,0s);
-    }
-    .reveal.on { opacity:1; transform:translateY(0); }
-
-    /* ── FADE UP ── */
-    @keyframes fadeUp {
-      from{opacity:0;transform:translateY(22px);}
-      to{opacity:1;transform:translateY(0);}
-    }
-
-    /* ── RESPONSIVE ── */
-    @media(max-width:768px){
-      nav{padding:1rem 1.5rem;}
-      nav ul{gap:1rem;}
-      section{padding:4rem 1.5rem;}
-      .about-inner{grid-template-columns:1fr;gap:2.5rem;}
-      #wink{width:80px;height:80px;top:66px;right:1rem;}
-    }
-    @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{animation:none!important;transition:none!important;}
-      .reveal{opacity:1;transform:none;}
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- cursor -->
-<div id="cursor"></div>
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
 
-<!-- bg orbs -->
-<div class="orb o1"></div>
-<div class="orb o2"></div>
-<div class="orb o3"></div>
+  <!-- Floating background orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-<!-- wink character fixed top-right -->
-<div id="wink">
-  <img src="assets/images/wink.png" alt="Anvika's wink character" />
-</div>
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo">✦ anvika</div>
+    <ul>
+      <li><a href="#about">about</a></li>
+      <li><a href="#vibes">vibes</a></li>
+      <li><a href="#art">art</a></li>
+      <li><a href="#contact">say hi</a></li>
+    </ul>
+  </nav>
 
-<!-- NAV -->
-<nav id="nav">
-  <div class="nav-logo">✦ anvika</div>
-  <ul>
-    <li><a href="#about">about</a></li>
-    <li><a href="#vibes">vibes</a></li>
-    <li><a href="#hello">say hi</a></li>
-  </ul>
-</nav>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-float hero-float-1">✦</div>
+    <div class="hero-float hero-float-2">◈</div>
+    <div class="hero-float hero-float-3">❋</div>
+    <div class="hero-float hero-float-4">✦</div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="floatie f1">✦</div>
-  <div class="floatie f2">◈</div>
-  <div class="floatie f3">❋</div>
-  <div class="floatie f4">✿</div>
-  <div class="floatie f5">◇</div>
-  <div class="floatie f6">✦</div>
-
-  <p class="hero-tag">hi, i'm</p>
-  <h1 class="hero-name">Anvika</h1>
-  <p class="hero-aka">also known as <span>Aarna</span> online</p>
-  <p class="hero-line">— the person who can't sit still.</p>
-  <a href="#about" class="hero-btn">come say hi ✦</a>
-
-  <!-- scrolling sticker banner -->
-  <div class="banner-strip">
-    <div class="banner-inner">
-      <img src="assets/images/sticker-girl.png" alt="" class="banner-img" />
-      <img src="assets/images/sticker-face.png" alt="" class="banner-img" />
-      <img src="assets/images/sticker-main.png" alt="" class="banner-img" />
-      <img src="assets/images/sticker-girl.png" alt="" class="banner-img" />
-      <img src="assets/images/sticker-face.png" alt="" class="banner-img" />
-      <img src="assets/images/sticker-main.png" alt="" class="banner-img" />
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="about-inner">
-    <div>
-      <p class="sec-label reveal" style="--d:.0s">✦ about me</p>
-      <h2 class="reveal" style="--d:.1s">I make things that<br>feel like <em>home.</em></h2>
-      <p class="reveal" style="--d:.2s">Interfaces, illustrations, and artwork — if it feels warm and a little personal, that's probably mine. Based in Nagpur, Maharashtra, fuelled by tons of coffee and good playlists.</p>
-      <p class="reveal" style="--d:.3s">If we haven't met yet, hi — I already feel like we'd get along.</p>
-    </div>
-    <div class="about-stickers reveal" style="--d:.2s">
-      <div class="about-sticker">
-        <img src="assets/images/sticker-main.png" alt="character" />
-      </div>
-      <div class="about-sticker">
-        <img src="assets/images/sticker-room.png" alt="room" />
-      </div>
-      <div class="about-sticker">
-        <img src="assets/images/sticker-girl.png" alt="pixel girl" />
-      </div>
-      <div class="about-sticker">
-        <img src="assets/images/sticker-face.png" alt="face" />
+    <div class="hero-content">
+      <p class="hero-tag">hey there, i'm</p>
+      <h1 class="hero-name">Anvika</h1>
+      <p class="hero-line">— the person who can't sit still.</p>
+      <p class="hero-sub">18 · Nagpur, Maharashtra · perpetually caffeinated</p>
+      <div class="hero-cta">
+        <a href="#about" class="btn-main">get to know me ↓</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- VIBES -->
-<section class="vibes" id="vibes">
-  <p class="sec-label reveal">✦ my world</p>
-  <h2 class="reveal" style="--d:.1s">Things that are <em>very me.</em></h2>
-  <div class="vibes-row reveal" style="--d:.2s">
-    <div class="vibe-pill"><span>🎨</span><span>drawing & art</span></div>
-    <div class="vibe-pill"><span>✨</span><span>creating things</span></div>
-    <div class="vibe-pill"><span>🎵</span><span>music always on</span></div>
-    <div class="vibe-pill"><span>📓</span><span>compulsive notes</span></div>
-    <div class="vibe-pill"><span>☕</span><span>coffee > sleep</span></div>
-    <div class="vibe-pill"><span>🌙</span><span>all-nighter pro</span></div>
-    <div class="vibe-pill"><span>📍</span><span>Nagpur, MH</span></div>
-    <div class="vibe-pill"><span>💜</span><span>purple everything</span></div>
-  </div>
-</section>
-
-<!-- CLOSING -->
-<section class="closing" id="hello">
-  <p class="sec-label reveal">✦ let's be friends</p>
-  <h2 class="reveal" style="--d:.1s">You made it this far.<br>We're basically <em>friends now.</em></h2>
-  <p class="reveal" style="--d:.2s">My DMs are always open. Whether you want to talk about art, share a playlist, collaborate on something, or just say hi — I'll probably reply way too fast because I'm always here.</p>
-  <div class="closing-links reveal" style="--d:.3s">
-    <a href="mailto:hello@anvika.com" class="c-btn main">✉ say hello</a>
-    <a href="#" class="c-btn">instagram</a>
-    <a href="#" class="c-btn">twitter</a>
-  </div>
-
-  <div class="heart-msg reveal" style="--d:.4s">
-    <div class="heart-inner">
-      Anvika ✦ Aarna ✦ Nagpur ✦ made with coffee ✦ Anvika ✦ Aarna ✦ Nagpur ✦ made with coffee ✦ Anvika ✦ Aarna ✦ Nagpur ✦ made with coffee ✦&nbsp;
+<div class="hero-badge">
+      <div class="badge-inner">
+        <span>open</span>
+        <span>to</span>
+        <span>chaos</span>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  made with ☕ &amp; zero sleep · Anvika aka Aarna · Nagpur · 2026
-</footer>
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-text reveal">
+        <p class="sec-label">✦ about me</p>
+        <h2>A little chaos,<br>a lot of <em>heart.</em></h2>
+        <p class="about-desc">I'm Anvika — 18, from Nagpur, and I run entirely on coffee and creative ideas. I pull all-nighters like it's a personality trait, but the work always gets done. I don't leave my seat until it does.</p>
+        <p class="about-desc">I love drawing, creating things, making notes nobody asked for, and listening to music that matches whatever mood I'm in. I'm the kind of person who finds ten new interests before finishing the first one.</p>
+        <div class="fun-fact reveal">
+          <span class="fact-icon">☕</span>
+          <p><strong>Fun fact:</strong> Pulls all-nighters like a pro, but the work? Always done. Doesn't even stand until it is.</p>
+        </div>
+      </div>
+      <div class="about-card reveal">
+        <div class="card-sticker">✦</div>
+        <div class="info-list">
+          <div class="info-row">
+            <span class="info-icon">📍</span>
+            <span>Nagpur, Maharashtra</span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">🎂</span>
+            <span>18 years old</span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">🎨</span>
+            <span>Drawing & creating</span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">🎵</span>
+            <span>Music for every mood</span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">📓</span>
+            <span>Compulsive note-taker</span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">☕</span>
+            <span>Coffee is a food group</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-  // cursor
-  const cur = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cur.style.left = e.clientX + 'px';
-    cur.style.top  = e.clientY + 'px';
-  });
+  <!-- VIBES -->
+  <section class="vibes" id="vibes">
+    <p class="sec-label reveal">✦ what i'm into</p>
+    <h2 class="reveal">My <em>Vibes</em></h2>
+    <div class="vibes-grid">
+      <div class="vibe-card reveal" style="--delay:0s">
+        <div class="vibe-emoji">🎨</div>
+        <h3>Drawing</h3>
+        <p>Characters, stickers, doodles at 2am — if I have a pen, something's getting drawn.</p>
+      </div>
+      <div class="vibe-card reveal" style="--delay:0.1s">
+        <div class="vibe-emoji">✨</div>
+        <h3>Creating</h3>
+        <p>Ideas don't stay in my head for long. I'd rather make something messy than imagine something perfect.</p>
+      </div>
+      <div class="vibe-card reveal" style="--delay:0.2s">
+        <div class="vibe-emoji">🎵</div>
+        <h3>Music</h3>
+        <p>There's a playlist for every version of me — focused Anvika, chaotic Anvika, 3am Anvika.</p>
+      </div>
+      <div class="vibe-card reveal" style="--delay:0.3s">
+        <div class="vibe-emoji">📓</div>
+        <h3>Note-taking</h3>
+        <p>I make notes for everything. For fun. For no reason. My notebooks are a whole lore.</p>
+      </div>
+      <div class="vibe-card reveal" style="--delay:0.4s">
+        <div class="vibe-emoji">☕</div>
+        <h3>Coffee</h3>
+        <p>Not a phase. A lifestyle. The all-nighters don't survive themselves.</p>
+      </div>
+      <div class="vibe-card reveal" style="--delay:0.5s">
+        <div class="vibe-emoji">🌙</div>
+        <h3>All-nighters</h3>
+        <p>The work gets done. Always. I don't stand up until it does — that's just the deal.</p>
+      </div>
+    </div>
+  </section>
 
-  // scroll reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  <!-- ART -->
+  <section class="art" id="art">
+    <p class="sec-label reveal">✦ my art</p>
+    <h2 class="reveal">Characters &amp; <em>Stickers</em></h2>
+    <p class="art-sub reveal">Drop your sticker PNGs into /assets/images/stickers/ and they'll show up here as clickable cards.</p>
+    <div class="art-grid">
+      <div class="art-card reveal" style="--delay:0s">
+        <div class="art-placeholder">
+          <img src="/assets/images/stickers/sticker-1.png" alt="Sticker 1" onerror="this.parentNode.innerHTML='<div class=\'art-emoji\'>🎨</div>'" />
+        </div>
+        <p>sticker 01</p>
+      </div>
+      <div class="art-card reveal" style="--delay:0.1s">
+        <div class="art-placeholder">
+          <img src="/assets/images/stickers/sticker-2.png" alt="Sticker 2" onerror="this.parentNode.innerHTML='<div class=\'art-emoji\'>✨</div>'" />
+        </div>
+        <p>sticker 02</p>
+      </div>
+      <div class="art-card reveal" style="--delay:0.2s">
+        <div class="art-placeholder">
+          <img src="/assets/images/stickers/sticker-3.png" alt="Sticker 3" onerror="this.parentNode.innerHTML='<div class=\'art-emoji\'>🌸</div>'" />
+        </div>
+        <p>sticker 03</p>
+      </div>
+      <div class="art-card reveal" style="--delay:0.3s">
+        <div class="art-placeholder">
+          <img src="/assets/images/stickers/sticker-4.png" alt="Sticker 4" onerror="this.parentNode.innerHTML='<div class=\'art-emoji\'>💜</div>'" />
+        </div>
+        <p>sticker 04</p>
+      </div>
+      <div class="art-card reveal" style="--delay:0.4s">
+        <div class="art-placeholder">
+          <img src="/assets/images/stickers/sticker-5.png" alt="Sticker 5" onerror="this.parentNode.innerHTML='<div class=\'art-emoji\'>🌙</div>'" />
+        </div>
+        <p>sticker 05</p>
+      </div>
+      <div class="art-card reveal" style="--delay:0.5s">
+        <div class="art-placeholder">
+          <img src="/assets/images/stickers/sticker-6.png" alt="Sticker 6" onerror="this.parentNode.innerHTML='<div class=\'art-emoji\'>⭐</div>'" />
+        </div>
+        <p>sticker 06</p>
+      </div>
+    </div>
+  </section>
 
-  // nav opacity on scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.style.background = window.scrollY > 50
-      ? 'rgba(13,6,24,0.96)' : 'rgba(13,6,24,0.82)';
-  });
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner reveal">
+      <p class="sec-label">✦ say hi</p>
+      <h2>Let's be <em>friends.</em></h2>
+      <p class="contact-desc">Whether you want to talk, collaborate, share a playlist, or just say hi — I'm here. Warning: talking to me for five minutes may result in a new obsession, a spontaneous plan, or both.</p>
+      <div class="contact-links">
+        <a href="mailto:hello@anvika.com" class="contact-btn">✉ email me</a>
+        <a href="https://instagram.com/k.annvi_"
+         target="_blank"
+          class="contact-btn">
+          instagram
+        </a>
+        <a href="#" class="contact-btn">twitter</a>
+      </div>
+    </div>
+    <div class="contact-deco">
+      <div class="deco-text">Anvika ✦ Anvika ✦ Anvika ✦ Anvika ✦ Anvika ✦ Anvika ✦ Anvika ✦</div>
+    </div>
+  </section>
 
-  // sticker wiggle on click
-  document.querySelectorAll('.about-sticker').forEach(card => {
-    card.addEventListener('click', () => {
-      card.style.transform = 'scale(0.92) rotate(-3deg)';
-      setTimeout(() => { card.style.transform = ''; }, 300);
-    });
-  });
-</script>
+  <!-- FOOTER -->
+  <footer>
+    <p>made with ☕ &amp; way too little sleep · Anvika · Nagpur · 2026</p>
+  </footer>
+
+  <script src="animations.js"></script>
 </body>
 </html>
